@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0d0b1a;
+    color: #e6e6ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(15, 12, 35, 0.9);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(80, 40, 150, 0.4);
+    border: 1px solid #3a306e;
+}
+
+h1 {
+    text-align: center;
+    color: #ffd700;
+    margin-bottom: 25px;
+    font-size: 2.1em;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+/*Статы красивые*/
+.stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 25px 0;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.stat {
+    padding: 12px 20px;
+    background: rgba(30, 25, 65, 0.8);
+    border-radius: 10px;
+    text-align: center;
+    min-width: 110px;
+    font-weight: bold;
+    border: 1px solid #4a3a8a;
+}
+
+.stat.magic {
+    background: rgba(50, 20, 70, 0.9);
+    color: #ffccff;
+    border: 1px solid #ba68c8;
+    box-shadow: 0 0 12px rgba(186, 104, 200, 0.5);
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    from { box-shadow: 0 0 8px rgba(186, 104, 200, 0.4); }
+    to { box-shadow: 0 0 18px rgba(230, 126, 200, 0.8); }
+}
+
+/*Текст красивый*/
+.scene {
+    margin: 20px 0;
+    padding: 18px;
+    background: rgba(20, 15, 45, 0.6);
+    border-radius: 10px;
+    line-height: 1.7;
+}
+
+.scene p {
+    margin: 10px 0;
+}
+
+.scene strong {
+    color: #ffd700;
+}
+
+/*Кнопочки*/
+.actions {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.actions h3 {
+    color: #d0d0ff;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+button {
+    padding: 12px 26px;
+    margin: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #2c1a4d, #4a236e);
+    color: white;
+    transition: all 0.25s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(45deg, #3a255d, #5a2d8e);
+}
+
+.continue {
+    background: linear-gradient(45deg, #7b3fa0, #5d2b7a);
+}
+
+.restart {
+    background: linear-gradient(45deg, #229954, #1d7a46);
+}
+
+/*Растягиваем*/
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    .stat {
+        min-width: 90px;
+        padding: 10px 14px;
+        font-size: 0.95em;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

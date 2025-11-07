@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глава 1. Возвращение</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>На часах 5:50 утра. Звенит будильник, прерывая неуловимые сны...</h1>
+
+        <div class="stats">
+            <div class="stat">Жизнь: {{ player.жизнь }}%</div>
+            <div class="stat">Психика: {{ player.психика }}%</div>
+            <div class="stat">Голод: {{ player.голод }}/40</div>
+            {% if player.магия %}
+                <div class="stat magic">??? : {{ player.магия }}%</div>
+            {% endif %}
+        </div>
+
+        {% if player.этап == "начало" %}
+            <div class="scene">
+                <p>Аннотация: Ты <strong>ненавидишь учёбу</strong>, но <strong>любишь учиться</strong>.  Ты <strong>ненавидишь запах дыма и горечь</strong>, но куришь.  Больше всего ты <strong>ценишь семью</strong> — и только ради неё держишься.</p>
+                <p>И сегодня снова будет нелёгкий день...</p>
+            </div>
+            <div class="actions">
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="встать">Встать вовремя?</button>
+                    <button type="submit" name="action" value="не_встать">СПАТЬ</button>
+                </form>
+            </div>
+
+        {% elif player.этап == "выбор_завтрака_встал" %}
+            <div class="actions">
+                <h3>Ты встал. А что с завтраком?</h3>
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="лёгкий_завтрак">Бутерброды с кофейком</button>
+                    <button type="submit" name="action" value="роскошный_завтрак">Приготовить омлет и салат</button>
+                </form>
+            </div>
+
+        {% elif player.этап == "выбор_завтрака_не_встал" %}
+            <div class="actions">
+                <h3>Ты проспал, и есть хочется безумно. Завтракаем?</h3>
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="без_завтрака">Неее, опаздываю же</button>
+                    <button type="submit" name="action" value="роскошный_завтрак">Омлетик~</button>
+                </form>
+            </div>
+
+        {% elif player.этап == "опоздание_автобус_встал" or player.этап == "опоздание_автобус_не_встал" %}
+            <div class="actions">
+                <h3>Автобус вот-вот поедет без тебя!!!</h3>
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="добрался_до_автобуса">RUN, Forest, RUN!</button>
+                    <button type="submit" name="action" value="не_добрался_до_автобуса">Ну и? На следующем поеду</button>
+                </form>
+            </div>
+
+        {% elif player.этап == "конец_вовремя" or
+            player.этап == "конец_опоздал_на_1ю" or
+            player.этап == "конец_успел_на_2ю" or
+            player.этап == "конец_успел_на_2ю_с_опозданием" or
+            player.этап == "конец_опоздал_25" or
+            player.этап == "конец_опоздал_10" %}
+            <div class="scene end-scene">
+                <p>День пролетел мимолётно, а ты устал. В голове сплошной шум, впитанный с улиц.</p>
+                <p>Ты вспоминаешь пару, на которой ты слышал, как кто-то <em>кто-то</em> шептал ответы, благодаря чему ты сдал тест...</p>
+                <p>Однако ты сидел в отдалённом уголке, откуда этот шёпот не был бы слышен. Среди хаоса мыслей ты вылавливаешь лишь одну: «<em>А не схожу ли я с ума?</em>»</p>
+            </div>
+            <div class="actions">
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="в_новое_утро" class="continue">
+                        Сделать шаг во тьму...
+                    </button>
+                </form>
+            </div>
+
+        {% elif player.этап == "финал" %}
+            <div class="scene final-scene">
+                <h2>Утро</h2>
+                <p>Ты просыпаешься в 5:50. Тот же будильник. Та же комната.</p>
+                <p>В мыслях проносится: «<strong>Дежавю?</strong>»</p>
+                <p>Но ты чувствуешь, что что-то явно не так. Вчера, или сегодня... Всё было слишком отчётливым для обычного дежавю.</p>
+                <p><em><strong>Продолжение следует…</strong></em></p>
+            </div>
+            <div class="actions">
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="restart" class="restart">
+                        Начать Главу 1 заново
+                    </button>
+                </form>
+            </div>
+
+        {% else %}
+            <div class="actions">
+                <p>Ошибка состояния. Начать заново.</p>
+                <form method="POST" action="/action">
+                    <button type="submit" name="action" value="restart" class="restart">
+                        Начать заново
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
